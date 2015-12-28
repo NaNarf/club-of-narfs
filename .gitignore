@@ -9,3 +9,5 @@ pom.xml
 profiles.clj
 /.env
 *.log
+.idea
+club_of_naaarfs.iml

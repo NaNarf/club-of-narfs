@@ -35,13 +35,22 @@
          (when-not @collapsed? {:class "in"})
          [:ul.nav.navbar-nav
           [nav-link "#/" "Home" :home collapsed?]
-          [nav-link "#/about" "About" :about collapsed?]]]]])))
+          [nav-link "#/about" "About" :about collapsed?]
+          [nav-link "#/showdowns" "Showdowns" :showdown collapsed?]]]]])))
+
 
 (defn about-page []
   [:div.container
    [:div.row
     [:div.col-md-12
      "this is the story of club_of_naaarfs... work in progress"]]])
+
+(defn showdown-page []
+  [:div.contain
+    [:div.row
+      [:div.col-md-12
+        [:h1
+         "Showdowns"]]]])
 
 (defn home-page []
   [:div.container
@@ -60,7 +69,8 @@
 
 (def pages
   {:home #'home-page
-   :about #'about-page})
+   :about #'about-page
+   :showdown #'showdown-page})
 
 (defn page []
   [(pages (session/get :page))])
@@ -74,6 +84,9 @@
 
 (secretary/defroute "/about" []
   (session/put! :page :about))
+
+(secretary/defroute "/showdowns" []
+    (session/put! :page :showdown))
 
 ;; -------------------------
 ;; History
