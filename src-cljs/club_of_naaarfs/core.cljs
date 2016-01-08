@@ -9,20 +9,6 @@
   (:import goog.History))
 
 
-(def hardcoded-showdown-data [{:creator {:name "Mickey Mouse"
-                                         :email "mickey@maus.com"}
-                               :creation-date #inst "2015-12-29"
-                               :location "Gerichtstrasse 23, NarfNest"
-                               :appointed-date #inst "2016-01-08T20:00"
-                               :proposals [{:title "Nase Bohren"
-                                            :description "Mal was anderes als Arschkratzen"
-                                            :author {:name "Matzetias Hackmann!"
-                                                     :email "mwahlfälscher@cduhhh.com"}}
-                                           {:title "Po Pieken"
-                                            :description "Mal was anderes als Nasebohren"
-                                            :author {:name "Schnulli"
-                                                     :email "schnulli@backe.org"}}]}])
-
 (def hardcoded-proposals [{:title "Nase Bohren"
                            :description "Mal was anderes als Arschkratzen"
                            :author {:name "Matzetias Hackmann!"
@@ -30,11 +16,11 @@
                                     :email "mwahlfälscher@cduhhh.com"}}
                           {:title "Po Pieken"
                            :description "Mal was anderes als Nasebohren"
-                           :author {:name "Flolololololo"
+                           :author {:name "Flolowlowloooow"
                                     :avatar-url "https://secure.gravatar.com/avatar/86cbefc14488bbe76a1c2368189efc6c.jpg?s=512&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F7fa9%2Fimg%2Favatars%2Fava_0001-512.png"
                                     :email "flooooooooo@bumbahumba.com"}}
                           {:title "SchlauKacken"
-                           :description "Besser als Nasebohre oder PoPieken"
+                           :description "Besser als Nasebohren oder PoPieken"
                            :author {:name "Schrizdruff Stullrich"
                                     :avatar-url "https://avatars.slack-edge.com/2015-12-14/16662818098_1ecb9b85f3bdbc61aec0_192.jpg"
                                     :email "stullrich@tomicowski.com"}}])
@@ -53,7 +39,7 @@
 
 (defn <proposal-item>
   "A proposal item component"
-  [{:keys [title description] {:keys [name avatar-url email]} :author :as proposal}]
+  [{:keys [title description] {:keys [name avatar-url]} :author}]
   [:li.proposal-item
    [:h4 title]
    [:p description]
