@@ -1,0 +1,4 @@
+language: clojure
+sudo: false
+notifications:
+  slack: narfnarf:gIiNcy4kiidCrf405Byyysf0
