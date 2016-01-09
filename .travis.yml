@@ -1,0 +1,10 @@
+language: clojure
+sudo: false
+env:
+  - DATABASE_URL=jdbc:h2:/tmp/club-of-narfs
+jdk:
+  - oraclejdk8
+  - openjdk7  
+notifications:
+  slack: narfnarf:gIiNcy4kiidCrf405Byyysf0
+  email: false
