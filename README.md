@@ -1,6 +1,6 @@
 # club_of_naaarfs
 
-FIXME
+
 
 ## Prerequisites
 

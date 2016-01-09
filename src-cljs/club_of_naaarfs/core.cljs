@@ -8,11 +8,50 @@
             [ajax.core :refer [GET POST]])
   (:import goog.History))
 
+(enable-console-print!)
+
+(def hardcoded-proposals [{:title "Nase Bohren"
+                           :description "Mal was anderes als Arschkratzen"
+                           :author {:nickname   "Matzetias Hackmann!"
+                                    :avatar-url "https://avatars.slack-edge.com/2015-11-13/14513569492_4ebac28ff715db6b5350_192.jpg"
+                                    :email      "mwahlfälscher@cduhhh.com"}}
+                          {:title "Po Pieken"
+                           :description "Mal was anderes als Nasebohren"
+                           :author {:nickname   "Flolowlowloooow"
+                                    :avatar-url "https://secure.gravatar.com/avatar/86cbefc14488bbe76a1c2368189efc6c.jpg?s=512&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F7fa9%2Fimg%2Favatars%2Fava_0001-512.png"
+                                    :email      "flooooooooo@bumbahumba.com"}}
+                          {:title "SchlauKacken"
+                           :description "Besser als Nasebohren oder PoPieken"
+                           :author {:nickname   "Schrizdruff Stullrich"
+                                    :avatar-url "https://avatars.slack-edge.com/2015-12-14/16662818098_1ecb9b85f3bdbc61aec0_192.jpg"
+                                    :email      "stullrich@tomicowski.com"}}])
+
+(declare <proposal-list>
+         <proposal-item>)
+
+(defn <proposal-list>
+  "An unordered list of proposals"
+  [proposal-list]
+  [:div.container-fluid
+   [:ul.proposal-list
+    (for [proposal proposal-list]
+      ^{:key (:title proposal)} [<proposal-item> proposal])]])
+
+(defn <proposal-item>
+  "A proposal item component"
+  [{:keys [title description] {:keys [nickname avatar-url]} :author}]
+  [:li.proposal-item
+   [:h4 title]
+   [:p description]
+   [:img.img-circle.img-thumb {:src avatar-url}]
+   [:span nickname]])
+
 (defn nav-link [uri title page collapsed?]
   [:li {:class (when (= page (session/get :page)) "active")}
    [:a {:href uri
         :on-click #(reset! collapsed? true)}
     title]])
+
 
 (defn navbar []
   (let [collapsed? (atom true)]
@@ -35,13 +74,24 @@
          (when-not @collapsed? {:class "in"})
          [:ul.nav.navbar-nav
           [nav-link "#/" "Home" :home collapsed?]
-          [nav-link "#/about" "About" :about collapsed?]]]]])))
+          [nav-link "#/about" "About" :about collapsed?]
+          [nav-link "#/proposal" "Proposals" :proposal collapsed?]]]]])))
+
 
 (defn about-page []
   [:div.container
    [:div.row
     [:div.col-md-12
      "this is the story of club_of_naaarfs... work in progress"]]])
+
+(defn proposal-page []
+  [:div.contain
+    [:div.row
+      [:div.col-md-12
+        [:img.proposal-img.pull-left {:src "/img/proposal.jpg"}]
+        [:h1
+         "Proposals"]
+        [<proposal-list> hardcoded-proposals]]]])
 
 (defn home-page []
   [:div.container
@@ -60,7 +110,8 @@
 
 (def pages
   {:home #'home-page
-   :about #'about-page})
+   :about #'about-page
+   :proposal #'proposal-page})
 
 (defn page []
   [(pages (session/get :page))])
@@ -74,6 +125,9 @@
 
 (secretary/defroute "/about" []
   (session/put! :page :about))
+
+(secretary/defroute "/proposal" []
+    (session/put! :page :proposal))
 
 ;; -------------------------
 ;; History
