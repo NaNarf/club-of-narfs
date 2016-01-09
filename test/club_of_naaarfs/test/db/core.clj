@@ -16,17 +16,17 @@
   (jdbc/with-db-transaction [t-conn db/conn]
     (jdbc/db-set-rollback-only! t-conn)
     (is (= 1 (db/create-user!
-               {:id         "1"
-                :first_name "Sam"
-                :last_name  "Smith"
-                :email      "sam.smith@example.com"
-                :pass       "pass"} {:connection t-conn})))
-    (is (= [{:id         "1"
-             :first_name "Sam"
-             :last_name  "Smith"
-             :email      "sam.smith@example.com"
-             :pass       "pass"
-             :admin      nil
-             :last_login nil
-             :is_active  nil}]
-           (db/get-user {:id "1"} {:connection t-conn})))))
+               {:id         1
+                :nickname   "krissduff"
+                :avatar_url "https://avatars.slack-edge.com/2015-12-14/16662818098_1ecb9b85f3bdbc61aec0_192.jpg"
+                :email      "krizzle@shizz.le"} {:connection t-conn})))
+    (let [user (db/get-user {:id 1} {:connection t-conn})]
+      (do 
+        (is 1 (count user))
+        (is (contains? (first user) :created))
+        (is (= {:id       1
+               :nickname   "krissduff"
+               :avatar_url "https://avatars.slack-edge.com/2015-12-14/16662818098_1ecb9b85f3bdbc61aec0_192.jpg"
+               :email      "krizzle@shizz.le"}
+           (doall (dissoc (first user) :created)))
+      )))))

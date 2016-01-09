@@ -1,18 +1,20 @@
 -- name: create-user!
 -- creates a new user record
 INSERT INTO users
-(id, nickname, email)
-VALUES (:id, :nickname, :email)
+(id, nickname, email, avatar_url)
+VALUES (:id, :nickname, :email, :avatar_url)
 
 -- name: update-user!
 -- update an existing user record
 UPDATE users
-SET nickname = :nickname, email = :email
+SET nickname = :nickname, 
+    email = :email, 
+    avatar_url = :avatar_url
 WHERE id = :id
 
 -- name: get-user
 -- retrieve a user given the id.
-SELECT id, nickname, email FROM users
+SELECT id, nickname, email, created, avatar_url FROM users
 WHERE id = :id
 
 -- name: delete-user!
