@@ -1,0 +1,40 @@
+/* this is very temporary and should done later with some fancy less or sass  */
+
+@font-face {
+    font-family: 'grapeblasterregular';
+    src: url('../fonts/grapeblaster-webfont.eot');
+    src: url('../fonts/grapeblaster-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/grapeblaster-webfont.woff2') format('woff2'),
+    url('../fonts/grapeblaster-webfont.woff') format('woff'),
+    url('../fonts/grapeblaster-webfont.ttf') format('truetype'),
+    url('../fonts/grapeblaster-webfont.svg#grapeblasterregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.navbar-brand {
+    font-family: 'grapeblasterregular';
+    font-size: 300px;
+}
+
+.proposal-list {
+    list-style: none;
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+.proposal-item {
+
+}
+
+.img-thumb {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.proposal-img {
+    width: 36%;
+}
