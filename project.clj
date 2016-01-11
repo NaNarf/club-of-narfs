@@ -77,9 +77,9 @@
                                  [ring/ring-devel "1.4.0"]
                                  [pjstadig/humane-test-output "0.7.1"]
                                  [com.cemerick/piggieback "0.2.2-SNAPSHOT"]
-                                 [lein-figwheel "0.5.0-2"]
+                                 [lein-figwheel "0.5.0-3"]
                                  [mvxcvi/puget "1.0.0"]]
-                  :plugins [[lein-figwheel "0.5.0-2"]]
+                  :plugins [[lein-figwheel "0.5.0-3"]]
                    :cljsbuild
                    {:builds
                     {:app
