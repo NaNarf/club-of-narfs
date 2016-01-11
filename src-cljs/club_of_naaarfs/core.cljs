@@ -32,6 +32,17 @@
 																				 :email      "stullrich@tomicowski.com"}}])
 
 
+;; App State
+;; ---------
+
+(defonce app-state (atom {:proposals hardcoded-proposals
+													:search    ""}))
+
+
+(defn update-search
+	"Updates :search in app-state"
+	[app-state new-search]
+	(assoc app-state :search new-search))
 
 
 ;; Search logic
@@ -50,19 +61,44 @@
 ;; View Components
 ;;----------------
 
-(declare proposal-list
-				 proposal-item)
+(declare
+	proposal-page
+	proposal-search
+	proposal-list
+	proposal-item)
 
-(defn proposal-list
-	"An unordered list of proposals"
-	[proposal-list]
+
+(defn proposal-page
+	"Proposal page" []
+	(let [{:keys [proposals search]} @app-state]
+		[:div.contain
+		 [:div.row
+			[:div.col-md-12
+			 [:img.proposal-img.pull-left {:src "/img/proposal.jpg"}]
+			 [:h1 "Proposals"]
+			 [proposal-search search]
+			 [proposal-list proposals search]]]]))
+
+(defn proposal-search
+	"A searchbox"
+	[search]
+	[:span "search, "
+	 [:input {:type      "text"
+						:value     search
+						:on-change (fn [event] (swap!
+																		 app-state
+																		 update-search
+																		 (-> event .-target .-value)))}]]
+	)
+
+(defn proposal-list "An unordered list of proposals"
+	[proposals search]
 	[:div.container-fluid
 	 [:ul.proposal-list
-		(for [proposal proposal-list]
+		(for [proposal (->> proposals (filter #(matches-search? search %)))]
 			^{:key (:title proposal)} [proposal-item proposal])]])
 
-(defn proposal-item
-	"A proposal item component"
+(defn proposal-item "A proposal item component"
 	[{:keys [title description] {:keys [nickname avatar-url]} :author}]
 	[:li.proposal-item
 	 [:h4 title]
@@ -70,14 +106,15 @@
 	 [:img.img-circle.img-thumb {:src avatar-url}]
 	 [:span.nickname nickname]])
 
-(defn nav-link [uri title page collapsed?]
+(defn nav-link "Navigation item"
+	[uri title page collapsed?]
 	[:li {:class (when (= page (session/get :page)) "active")}
 	 [:a {:href     uri
 				:on-click #(reset! collapsed? true)}
 		title]])
 
 
-(defn navbar []
+(defn navbar "Main navigation" []
 	(let [collapsed? (atom true)]
 		(fn []
 			[:nav.navbar.navbar-inverse.navbar-fixed-top
@@ -101,7 +138,7 @@
 					[nav-link "#/rich-says" "Rich says" :rich-says collapsed?]
 					[nav-link "#/proposal" "Proposals" :proposal collapsed?]]]]])))
 
-(defn rich-says-page []
+(defn rich-says-page "Rich's cites page " []
 	[:div.contain
 	 [:div.row]
 	 [:div.col-md-6
@@ -110,16 +147,8 @@
 		[:h1 "Rich says:"]
 		[:blockquote>span.speech "Write code in Clojure or i kill you!!!"]]])
 
-(defn proposal-page []
-	[:div.contain
-	 [:div.row
-		[:div.col-md-12
-		 [:img.proposal-img.pull-left {:src "/img/proposal.jpg"}]
-		 [:h1
-			"Proposals"]
-		 [proposal-list hardcoded-proposals]]]])
 
-(defn home-page []
+(defn home-page "Start Page" []
 	[:div.container
 	 [:div.jumbotron
 		[:h1 "Welcome to club_of_naaarfs"]
