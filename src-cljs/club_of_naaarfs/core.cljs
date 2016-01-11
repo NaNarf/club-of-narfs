@@ -15,28 +15,30 @@
 ;; App Data
 ;;---------
 
-(def hardcoded-proposals [{:title       "Nase Bohren"
+(def hardcoded-proposals [{:title "Nase Bohren"
 													 :description "Mal was anderes als Arschkratzen"
-													 :author      {:nickname   "Matzetias Hackmann!"
-																				 :avatar-url "https://avatars.slack-edge.com/2015-11-13/14513569492_4ebac28ff715db6b5350_192.jpg"
-																				 :email      "mwahlfälscher@cduhhh.com"}}
-													{:title       "Po Pieken"
+													 :author {:nickname "Matzetias Hackmann!"
+																		:avatar-url "https://avatars.slack-edge.com/2015-11-13/14513569492_4ebac28ff715db6b5350_192.jpg"
+																		:email "mwahlfälscher@cduhhh.com"}}
+
+													{:title "Po Pieken"
 													 :description "Mal was anderes als Nasebohren"
-													 :author      {:nickname   "Flolowlowloooow"
-																				 :avatar-url "https://secure.gravatar.com/avatar/86cbefc14488bbe76a1c2368189efc6c.jpg?s=512&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F7fa9%2Fimg%2Favatars%2Fava_0001-512.png"
-																				 :email      "flooooooooo@bumbahumba.com"}}
-													{:title       "SchlauKacken"
+													 :author {:nickname "Flolowlowloooow"
+																		:avatar-url "https://secure.gravatar.com/avatar/86cbefc14488bbe76a1c2368189efc6c.jpg?s=512&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F7fa9%2Fimg%2Favatars%2Fava_0001-512.png"
+																		:email "flooooooooo@bumbahumba.com"}}
+
+													{:title "SchlauKacken"
 													 :description "Besser als Nasebohren oder PoPieken"
-													 :author      {:nickname   "Schrizdruff Stullrich"
-																				 :avatar-url "https://avatars.slack-edge.com/2015-12-14/16662818098_1ecb9b85f3bdbc61aec0_192.jpg"
-																				 :email      "stullrich@tomicowski.com"}}])
+													 :author {:nickname "Schrizdruff Stullrich"
+																		:avatar-url "https://avatars.slack-edge.com/2015-12-14/16662818098_1ecb9b85f3bdbc61aec0_192.jpg"
+																		:email "stullrich@tomicowski.com"}}])
 
 
 ;; App State
 ;; ---------
 
 (defonce app-state (atom {:proposals hardcoded-proposals
-													:search    ""}))
+													:search ""}))
 
 
 (defn update-search
@@ -83,8 +85,8 @@
 	"A searchbox"
 	[search]
 	[:span "search, "
-	 [:input {:type      "text"
-						:value     search
+	 [:input {:type "text"
+						:value search
 						:on-change (fn [event] (swap!
 																		 app-state
 																		 update-search
@@ -109,7 +111,7 @@
 (defn nav-link "Navigation item"
 	[uri title page collapsed?]
 	[:li {:class (when (= page (session/get :page)) "active")}
-	 [:a {:href     uri
+	 [:a {:href uri
 				:on-click #(reset! collapsed? true)}
 		title]])
 
@@ -121,11 +123,11 @@
 			 [:div.container
 				[:div.navbar-header
 				 [:button.navbar-toggle
-					{:class         (when-not @collapsed? "collapsed")
-					 :data-toggle   "collapse"
+					{:class (when-not @collapsed? "collapsed")
+					 :data-toggle "collapse"
 					 :aria-expanded @collapsed?
 					 :aria-controls "navbar"
-					 :on-click      #(swap! collapsed? not)}
+					 :on-click #(swap! collapsed? not)}
 					[:span.sr-only "Toggle Navigation"]
 					[:span.icon-bar]
 					[:span.icon-bar]
@@ -164,9 +166,9 @@
 							{:__html (md->html docs)}}]]])])
 
 (def pages
-	{:home      #'home-page
+	{:home #'home-page
 	 :rich-says #'rich-says-page
-	 :proposal  #'proposal-page})
+	 :proposal #'proposal-page})
 
 (defn page []
 	[(pages (session/get :page))])
