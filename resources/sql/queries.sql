@@ -1,8 +1,8 @@
--- name: create-user!
+-- name: create-user<!
 -- creates a new user record
 INSERT INTO users
-(id, nickname, email, avatar_url)
-VALUES (:id, :nickname, :email, :avatar_url)
+(nickname, email, avatar_url)
+VALUES (:nickname, :email, :avatar_url)
 
 -- name: update-user!
 -- update an existing user record
@@ -16,6 +16,12 @@ WHERE id = :id
 -- retrieve a user given the id.
 SELECT id, nickname, email, created, avatar_url FROM users
 WHERE id = :id
+
+-- name: get-users
+-- retrieves users sorted by created timestamp with limit and offset
+SELECT id, nickname, email, avatar_url, created FROM users
+ORDER BY created DESC
+LIMIT :limit OFFSET :offset;
 
 -- name: delete-user!
 -- delete a user given the id
