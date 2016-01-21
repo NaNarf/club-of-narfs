@@ -48,5 +48,5 @@
 
 (def app 
   (routes
-    user-api
+    user-api ;; TODO: add swagger docs
     (middleware/wrap-base #'app-routes)))
