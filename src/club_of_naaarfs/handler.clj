@@ -2,6 +2,7 @@
   (:require [compojure.core :refer [defroutes routes wrap-routes]]
             [club-of-naaarfs.layout :refer [error-page]]
             [club-of-naaarfs.routes.home :refer [home-routes]]
+            [club-of-naaarfs.routes.users :refer [user-api]]
             [club-of-naaarfs.middleware :as middleware]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
@@ -45,4 +46,7 @@
         (error-page {:status 404
                      :title "page not found"})))))
 
-(def app (middleware/wrap-base #'app-routes))
+(def app 
+  (routes
+    user-api ;; TODO: add swagger docs
+    (middleware/wrap-base #'app-routes)))

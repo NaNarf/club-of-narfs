@@ -15,18 +15,17 @@
 (deftest test-users
   (jdbc/with-db-transaction [t-conn db/conn]
     (jdbc/db-set-rollback-only! t-conn)
-    (is (= 1 (db/create-user!
-               {:id         1
-                :nickname   "krissduff"
+    (let [result (db/create-user<!
+               {:nickname   "krissduff"
                 :avatar_url "https://avatars.slack-edge.com/2015-12-14/16662818098_1ecb9b85f3bdbc61aec0_192.jpg"
-                :email      "krizzle@shizz.le"} {:connection t-conn})))
-    (let [user (db/get-user {:id 1} {:connection t-conn})]
-      (do 
-        (is 1 (count user))
-        (is (contains? (first user) :created))
-        (is (= {:id       1
-               :nickname   "krissduff"
-               :avatar_url "https://avatars.slack-edge.com/2015-12-14/16662818098_1ecb9b85f3bdbc61aec0_192.jpg"
-               :email      "krizzle@shizz.le"}
-           (doall (dissoc (first user) :created)))
-      )))))
+                :email      "krizzle@shizz.le"} {:connection t-conn})
+          id ((keyword "scope_identity()") result)]
+           (let [user (db/get-user {:id id} {:connection t-conn})]
+              (is 1 (count user))
+              (is (contains? (first user) :created))
+              (is (= { :id         id
+                       :nickname   "krissduff"
+                       :avatar_url "https://avatars.slack-edge.com/2015-12-14/16662818098_1ecb9b85f3bdbc61aec0_192.jpg"
+                       :email      "krizzle@shizz.le"}
+                 (doall (dissoc (first user) :created))))
+              (is 1 (db/delete-user! {:id 1} {:connection t-conn}))))))

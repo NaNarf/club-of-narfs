@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
-    id int PRIMARY KEY,
+    id int IDENTITY,
     nickname VARCHAR,
     email VARCHAR,
     avatar_url VARCHAR,
