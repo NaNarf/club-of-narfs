@@ -1,0 +1,93 @@
+/* this is very temporary and should done later with some fancy less or sass  */
+
+@font-face {
+    font-family: 'grapeblasterregular';
+    src: url('../fonts/grapeblaster-webfont.eot');
+    src: url('../fonts/grapeblaster-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/grapeblaster-webfont.woff2') format('woff2'),
+    url('../fonts/grapeblaster-webfont.woff') format('woff'),
+    url('../fonts/grapeblaster-webfont.ttf') format('truetype'),
+    url('../fonts/grapeblaster-webfont.svg#grapeblasterregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: cursive;
+    font-size: 20px;
+}
+
+.speech {
+    border-radius: 12px;
+    color: black;
+    text-shadow: red 1px 1px 1px, red -1px -1px 1px,red 1px -1px 1px,red -1px 1px 1px;
+    font-size: 52px;
+}
+
+.navbar-brand {
+    font-family: 'grapeblasterregular';
+    font-size: 72px;
+    line-height: 1;
+    letter-spacing: 1px;
+    height: 72px;
+    min-height: 72px;
+    padding: 0 30px 0 15px;
+}
+
+.navbar-nav {
+    font-family: 'Jolly Lodger', cursive;
+    font-size: 28px;
+}
+
+.navbar-nav>li>a {
+    line-height: 42px;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Jolly Lodger', cursive;
+}
+
+.nickname {
+    font-family: 'Jolly Lodger', cursive;
+    font-size: 24px;
+}
+
+h1 {
+ font-size: 72px;
+}
+
+h2 {
+    font-size: 60px;
+}
+
+h3 {
+    font-size: 48px;
+}
+
+h4 {
+    font-size: 36px;
+}
+
+
+
+.proposal-list {
+    list-style: none;
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+.proposal-item {
+
+}
+
+.img-thumb {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.proposal-img {
+    width: 36%;
+}
