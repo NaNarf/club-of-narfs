@@ -11,4 +11,5 @@ profiles.clj
 *.log
 .idea
 club_of_naaarfs.iml
-club_of_naaarfs_dev.db.mv.db
+*.mv.db
+*.trace.db
